@@ -1,8 +1,7 @@
 import { readFile } from 'node:fs/promises';
 import { join } from 'node:path';
-import { env } from '$app/env/private';
 
-const DATA_DIR = env.DATA_DIR ?? join(process.cwd(), 'data');
+const DATA_DIR = process.env.DATA_DIR ?? join(process.cwd(), 'data');
 const TZ = 'Europe/Berlin';
 
 async function lies(datei, fallback) {

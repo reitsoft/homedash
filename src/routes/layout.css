@@ -1,3 +1,97 @@
 @import 'tailwindcss';
+@import '@fontsource/poppins/300.css';
+@import '@fontsource/poppins/400.css';
+@import '@fontsource/poppins/500.css';
+
 @plugin '@tailwindcss/forms';
 @plugin '@tailwindcss/typography';
+
+@theme {
+	/* Flächen */
+	--color-bg: #181a2b; /* Seitenhintergrund */
+	--color-card: #26283e; /* Kacheln */
+	--color-track: #1a1c2e; /* Balken-Hintergrund, Eingabefelder */
+	--color-grid: #3a3d58; /* Rasterlinien in Charts */
+	--color-line: #34374f; /* feine Trennlinien innerhalb einer Kachel */
+
+	/* Akzente */
+	--color-cyan: #25d3d6; /* Zahlen, Icons, aktive Elemente */
+	--color-cyan-light: #3de0e8;
+	--color-blue: #2f6df0; /* Start des Verlaufs */
+
+	/* Text */
+	--color-fg: #f1f3fa;
+	--color-muted: #8a8ea8;
+
+	/* Typografie */
+	--font-sans: 'Poppins', system-ui, sans-serif;
+
+	/* Formen */
+	--radius-card: 0.75rem;
+	--radius-pill: 9999px;
+
+	/* Abstände */
+	--spacing-gap: 1rem; /* Abstand zwischen Kacheln (gap-gap) */
+}
+
+@layer base {
+	html,
+	body {
+		height: 100%;
+	}
+	body {
+		@apply bg-bg font-sans font-light text-fg antialiased;
+	}
+}
+
+@layer components {
+	/* Kachel */
+	.card {
+		@apply rounded-card border border-white/5 bg-card p-6 shadow-lg shadow-black/20;
+	}
+
+	/* kleine Bereichsüberschrift in der Kachel */
+	.card-label {
+		@apply mb-3 text-sm font-normal tracking-widest text-cyan uppercase;
+	}
+
+	/* Trennlinie zwischen direkten Kindern (Listenzeilen, Tage) */
+	.row-divider > * + * {
+		@apply border-t border-line;
+	}
+
+	/* KPI-Elemente */
+	.kpi {
+		@apply text-4xl leading-none font-light text-cyan;
+	}
+	.kpi-title {
+		@apply text-lg font-light text-fg;
+	}
+	.kpi-sub {
+		@apply text-[0.5rem] tracking-wide text-muted;
+	}
+
+	/* Buttons */
+	.btn-solid {
+		@apply border border-cyan bg-cyan px-6 py-1 text-xs text-bg;
+	}
+	.btn-outline {
+		@apply border border-cyan bg-transparent px-6 py-1 text-xs text-cyan;
+	}
+
+	/* Fortschrittsbalken */
+	.bar-track {
+		@apply h-1.5 w-full bg-track;
+	}
+	.bar-fill {
+		@apply h-full bg-linear-to-r from-blue to-cyan;
+	}
+}
+
+@utility scrollbar-none {
+	scrollbar-width: none;
+
+	&::-webkit-scrollbar {
+		display: none;
+	}
+}

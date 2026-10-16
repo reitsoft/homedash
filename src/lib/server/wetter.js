@@ -1,19 +1,22 @@
-import { env } from '$app/env/private';
-
 import { heuteBerlin } from './agenda';
 
 // Koordinaten per .env setzen: WETTER_LAT / WETTER_LON (Default: Singen)
-const LAT = env.WETTER_LAT ?? '47.76';
-const LON = env.WETTER_LON ?? '8.84';
+const LAT = process.env.WETTER_LAT ?? '47.76';
+const LON = process.env.WETTER_LON ?? '8.84';
 const TTL_MS = 15 * 60 * 1000;
+const FEHLER_TTL_MS = 5 * 60 * 1000;
 const ANZEIGE_STUNDEN = [6, 9, 12, 15, 18, 21];
 
 let cache = null;
+let naechsterVersuch = 0;
 
 export async function ladeWetter() {
-	if (cache && Date.now() - cache.geladen < TTL_MS && cache.daten.datum === heuteBerlin()) {
+	const jetzt = Date.now();
+	if (cache && jetzt - cache.geladen < TTL_MS && cache.daten.datum === heuteBerlin()) {
 		return cache.daten;
 	}
+	if (jetzt < naechsterVersuch) return cache?.daten ?? null;
+
 	try {
 		const url = new URL('https://api.open-meteo.com/v1/forecast');
 		url.search = new URLSearchParams({
@@ -52,8 +55,10 @@ export async function ladeWetter() {
 			}))
 		};
 		cache = { geladen: Date.now(), daten };
+		naechsterVersuch = 0;
 		return daten;
 	} catch (e) {
+		naechsterVersuch = Date.now() + FEHLER_TTL_MS;
 		console.error('[wetter] Abruf fehlgeschlagen:', e);
 		return cache?.daten ?? null; // lieber veraltete Daten als gar nichts
 	}
