@@ -1,7 +1,5 @@
 <script>
-	import { goto, invalidate } from '$app/navigation';
-	import { page } from '$app/state';
-	import { resolve } from '$app/paths';
+	import { invalidate } from '$app/navigation';
 	import Heute from '#lib/components/tablet/seiten/Heute.svelte';
 	import Rolladen from '#lib/components/tablet/seiten/Rolladen.svelte';
 	import './layout.css';
@@ -10,34 +8,15 @@
 	let { children, data } = $props();
 	let scroller;
 	let active = $state(0);
-	let settleTimer;
 
 	const seiten = [
-		{ id: 'heute', titel: 'Heute', path: '/', Seite: Heute },
-		{ id: 'rolladen', titel: 'Rolladen', path: '/rolladen', Seite: Rolladen }
+		{ id: 'heute', titel: 'Heute', Seite: Heute },
+		{ id: 'rolladen', titel: 'Rolladen', Seite: Rolladen }
 	];
-
-	$effect(() => {
-		if (!scroller) return;
-		clearTimeout(settleTimer);
-		const index = page.route.id === '/rolladen' ? 1 : 0;
-		active = index;
-		scroller.scrollTo({ left: index * scroller.clientWidth, behavior: 'instant' });
-	});
 
 	function onscroll() {
 		if (!scroller) return;
 		active = Math.round(scroller.scrollLeft / scroller.clientWidth);
-		clearTimeout(settleTimer);
-		settleTimer = setTimeout(synchronisiereRoute, 500);
-	}
-
-	function synchronisiereRoute() {
-		const index = Math.round(scroller.scrollLeft / scroller.clientWidth);
-		const route = resolve(seiten[index].path);
-		if (page.url.pathname !== route) {
-			goto(route, { reset: false });
-		}
 	}
 
 	function gehe(index) {
@@ -52,14 +31,13 @@
 
 <svelte:head>
 	<link rel="icon" href={favicon} />
-	<title>Dahoam</title>
+	<title>Dahoam – {seiten[active].titel}</title>
 </svelte:head>
 
 <main class="relative h-dvh overflow-hidden">
 	<div
 		bind:this={scroller}
 		{onscroll}
-		onscrollend={synchronisiereRoute}
 		class="scrollbar-none flex h-full snap-x snap-mandatory overflow-x-auto overscroll-x-contain"
 	>
 		{#each seiten as { id, Seite } (id)}
