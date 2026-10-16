@@ -2,6 +2,7 @@
 	import { invalidate } from '$app/navigation';
 	import Heute from '#lib/components/tablet/seiten/Heute.svelte';
 	import Rolladen from '#lib/components/tablet/seiten/Rolladen.svelte';
+	import Energie from '#lib/components/tablet/seiten/Energie.svelte';
 	import './layout.css';
 	import favicon from '#lib/assets/favicon.svg';
 
@@ -11,7 +12,8 @@
 
 	const seiten = [
 		{ id: 'heute', titel: 'Heute', Seite: Heute },
-		{ id: 'rolladen', titel: 'Rolladen', Seite: Rolladen }
+		{ id: 'rolladen', titel: 'Rolladen', Seite: Rolladen },
+		{ id: 'energie', titel: 'Energie', Seite: Energie }
 	];
 
 	function onscroll() {
