@@ -1,0 +1,17 @@
+{
+  "zeiten": [
+    { "nr": 1, "von": "07:55", "bis": "08:40" },
+    { "nr": 2, "von": "08:45", "bis": "09:30" },
+    { "nr": 3, "von": "09:50", "bis": "10:35" },
+    { "nr": 4, "von": "10:40", "bis": "11:25" },
+    { "nr": 5, "von": "11:35", "bis": "12:20" },
+    { "nr": 6, "von": "12:25", "bis": "13:10" }
+  ],
+  "tage": {
+    "1": [{ "nr": 1, "fach": "Mathe", "raum": "204" }, { "nr": 2, "fach": "Deutsch", "raum": "204" }, { "nr": 3, "fach": "Englisch", "raum": "112" }, { "nr": 4, "fach": "Sport", "raum": "Halle" }],
+    "2": [{ "nr": 1, "fach": "Biologie", "raum": "Bio 1" }, { "nr": 2, "fach": "Biologie", "raum": "Bio 1" }, { "nr": 3, "fach": "Mathe", "raum": "204" }, { "nr": 4, "fach": "Geschichte", "raum": "301" }, { "nr": 5, "fach": "Musik", "raum": "Musik" }],
+    "3": [{ "nr": 1, "fach": "Deutsch", "raum": "204" }, { "nr": 2, "fach": "Englisch", "raum": "112" }, { "nr": 3, "fach": "Physik", "raum": "Phy 2" }, { "nr": 4, "fach": "Physik", "raum": "Phy 2" }, { "nr": 5, "fach": "Kunst", "raum": "Kunst" }, { "nr": 6, "fach": "Kunst", "raum": "Kunst" }],
+    "4": [{ "nr": 1, "fach": "Mathe", "raum": "204" }, { "nr": 2, "fach": "Geographie", "raum": "301" }, { "nr": 3, "fach": "Deutsch", "raum": "204" }, { "nr": 4, "fach": "Englisch", "raum": "112" }],
+    "5": [{ "nr": 1, "fach": "Sport", "raum": "Halle" }, { "nr": 2, "fach": "Sport", "raum": "Halle" }, { "nr": 3, "fach": "Geschichte", "raum": "301" }, { "nr": 4, "fach": "Mathe", "raum": "204" }]
+  }
+}

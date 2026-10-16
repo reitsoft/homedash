@@ -1,0 +1,9 @@
+{
+	"files.associations": {
+		"*.css": "tailwindcss"
+	},
+	
+	"js/ts.validate.enabled": false,
+  	"svelte.plugin.typescript.enable": false
+
+}
