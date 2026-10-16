@@ -1,14 +1,16 @@
 <script>
+	import './layout.css';
+	import favicon from '#lib/assets/favicon.svg';
 	import { invalidate } from '$app/navigation';
+	
 	import Heute from '#lib/components/tablet/seiten/Heute.svelte';
 	import Rolladen from '#lib/components/tablet/seiten/Rolladen.svelte';
 	import Energie from '#lib/components/tablet/seiten/Energie.svelte';
-	import './layout.css';
-	import favicon from '#lib/assets/favicon.svg';
 
 	let { children, data } = $props();
 	let scroller;
 	let active = $state(0);
+	const AUTO_RESET_MS = 3 * 60_000;
 
 	const seiten = [
 		{ id: 'heute', titel: 'Heute', Seite: Heute },
@@ -24,6 +26,13 @@
 	function gehe(index) {
 		scroller?.scrollTo({ left: index * scroller.clientWidth, behavior: 'smooth' });
 	}
+
+	$effect(() => {
+		if (active === 0) return;
+
+		const timer = setTimeout(() => gehe(0), AUTO_RESET_MS);
+		return () => clearTimeout(timer);
+	});
 
 	$effect(() => {
 		const timer = setInterval(() => invalidate('app:agenda'), 15 * 60_000);
